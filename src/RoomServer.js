@@ -169,12 +169,16 @@ class RoomServer
     {
         console.log('Find game ' + uri)
         let game_instance = this.games[uri]
-        if (game_instance && game_instance.player_count < 2)
+        if (game_instance)
         {
-            game_instance.player_client = player
-            game_instance.player_count++
-            this.StartGame(game_instance)
-            return
+            if (game_instance.player_count < 2)
+            {
+                game_instance.player_client = player
+                game_instance.player_count++
+                this.StartGame(game_instance)
+                return
+            }
+            player.send('s.u') // unavailable
         }
     }
 }
