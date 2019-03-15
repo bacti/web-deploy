@@ -3,7 +3,7 @@ Description=web-deploy
 After=network.target
 
 [Service]
-ExecStart=/home/tranmhaii_gmail_com/web-deploy/index.js
+ExecStart=/home/tranmhaii_gmail_com/web-deploy/src/main.js
 Restart=always
 User=nobody
 # Note Debian/Ubuntu uses 'nogroup', RHEL/Fedora uses 'nobody'
