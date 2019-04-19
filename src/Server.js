@@ -25,6 +25,7 @@ class Server extends EventEmitter {
     }
 
     const handler = http.createServer();
+    console.log(handler)
     handler.listen(Config.SERVER_PORT, evt =>
       console.log(`Listening on ${Config.SERVER_PORT}`)
     );
