@@ -12,10 +12,12 @@ class Server extends EventEmitter
     constructor()
     {
         super()
+        const app = express()
+        const handler = http.createServer(app)
+        handler.listen(Config.SERVER_PORT, evt => console.log(`Listening on ${Config.SERVER_PORT}`))
+
         if (FS.existsSync(RELEASE))
         {
-            const app = express()
-            http.Server(app).listen(Config.CLIENT_PORT)
             app.use((req, res, next) =>
             {
                 res.header('Access-Control-Allow-Origin', 'http://localhost:8080')
@@ -25,8 +27,6 @@ class Server extends EventEmitter
             app.use('/', express.static(RELEASE))
         }
 
-        const handler = http.createServer()
-        handler.listen(Config.SERVER_PORT, evt => console.log(`Listening on ${Config.SERVER_PORT}`))
         let sio = require('socket.io')(handler, {transports: ['websocket']})
         sio.on('connection', client => this.emit('connection', client))
     }
