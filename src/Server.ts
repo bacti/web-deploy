@@ -15,22 +15,14 @@ class Server extends EventEmitter
     {
         super()
         const app = express()
-        let handler
-        // if (universe.PROTOCOL == 'http')
-        // {
-        //     handler = http.createServer(app)    
-        // }
-        // else
+        const options =
         {
-            const options =
-            {
-                key: FS.readFileSync(PATH.join(__dirname, 'key.pem')),
-                cert: FS.readFileSync(PATH.join(__dirname, 'cert.pem')),
-            }
-            handler = https.createServer(options, app)
+            key: FS.readFileSync(PATH.join(__dirname, 'key.pem')),
+            cert: FS.readFileSync(PATH.join(__dirname, 'cert.pem')),
         }
-        http.createServer(app).listen(80) 
+        const handler = https.createServer(options, app)
         handler.listen(universe.SERVER_PORT, evt => console.log(`Listening on ${universe.SERVER_PORT}`))
+        http.createServer(app).listen(80) 
 
         if (FS.existsSync(RELEASE))
         {
