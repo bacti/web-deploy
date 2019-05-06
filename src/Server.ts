@@ -24,8 +24,8 @@ class Server extends EventEmitter
         {
             const options =
             {
-                key: FS.readFileSync(PATH.join(__dirname, 'key.pem')),
-                cert: FS.readFileSync(PATH.join(__dirname, 'cert.pem')),
+                key: FS.readFileSync(PATH.join(__dirname, 'account-key.txt')),
+                cert: FS.readFileSync(PATH.join(__dirname, 'domain-csr.txt')),
             }
             handler = https.createServer(options, app)
         }
