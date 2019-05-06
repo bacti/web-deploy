@@ -1,11 +1,12 @@
 const PATH = require('path')
 const FS = require('fs-extra')
-const EventEmitter = require('./EventEmitter')
 const express = require('express')
-const http = require('http')
-const Config = require('../config')
+const https = require('https')
 
+import '../constants'
+import EventEmitter from './EventEmitter'
 const RELEASE = PATH.join(process.cwd(), 'dist')
+const universe: any = global
 
 class Server extends EventEmitter
 {
@@ -13,8 +14,13 @@ class Server extends EventEmitter
     {
         super()
         const app = express()
-        const handler = http.createServer(app)
-        handler.listen(Config.SERVER_PORT, evt => console.log(`Listening on ${Config.SERVER_PORT}`))
+        const options =
+        {
+            key: FS.readFileSync(PATH.join(__dirname, 'key.pem')),
+            cert: FS.readFileSync(PATH.join(__dirname, 'cert.pem')),
+        }
+        const handler = https.createServer(options, app)
+        handler.listen(universe.SERVER_PORT, evt => console.log(`Listening on ${universe.SERVER_PORT}`))
 
         if (FS.existsSync(RELEASE))
         {
@@ -27,8 +33,8 @@ class Server extends EventEmitter
             app.use('/', express.static(RELEASE))
         }
 
-        let sio = require('socket.io')(handler, {transports: ['websocket']})
+        let sio = require('socket.io')(handler, { transports: ['websocket'] })
         sio.on('connection', client => this.emit('connection', client))
     }
 }
-module.exports = new Server()
+export default new Server()
