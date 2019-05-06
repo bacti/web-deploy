@@ -37,7 +37,7 @@ class Server extends EventEmitter
             {
                 res.header('Access-Control-Allow-Origin', `${universe.PROTOCOL}://${universe.SERVER_DOMAIN}:${universe.SERVER_PORT}`)
                 res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-                next()
+                req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
             })
             app.use('/', express.static(RELEASE))
         }
