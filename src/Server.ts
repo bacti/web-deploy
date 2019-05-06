@@ -1,6 +1,7 @@
 const PATH = require('path')
 const FS = require('fs-extra')
 const express = require('express')
+const http = require('http')
 const https = require('https')
 
 import '../dist/constants'
@@ -14,12 +15,20 @@ class Server extends EventEmitter
     {
         super()
         const app = express()
-        const options =
+        let handler
+        if (universe.PROTOCOL == 'http')
         {
-            key: FS.readFileSync(PATH.join(__dirname, 'key.pem')),
-            cert: FS.readFileSync(PATH.join(__dirname, 'cert.pem')),
+            handler = http.createServer(app)    
         }
-        const handler = https.createServer(options, app)
+        else
+        {
+            const options =
+            {
+                key: FS.readFileSync(PATH.join(__dirname, 'key.pem')),
+                cert: FS.readFileSync(PATH.join(__dirname, 'cert.pem')),
+            }
+            handler = https.createServer(options, app)
+        }
         handler.listen(universe.SERVER_PORT, evt => console.log(`Listening on ${universe.SERVER_PORT}`))
 
         if (FS.existsSync(RELEASE))
