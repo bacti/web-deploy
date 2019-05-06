@@ -35,14 +35,14 @@ class Server extends EventEmitter
         {
             app.use((req, res, next) =>
             {
-                res.header('Access-Control-Allow-Origin', 'http://localhost:8080')
+                res.header('Access-Control-Allow-Origin', `${universe.PROTOCOL}://${universe.SERVER_DOMAIN}:${universe.SERVER_PORT}`)
                 res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
                 next()
             })
             app.use('/', express.static(RELEASE))
         }
 
-        let sio = require('socket.io')(handler, { transports: ['websocket'] })
+        let sio = require('socket.io')(handler, { transports: ['websocket'], secure: true })
         sio.on('connection', client => this.emit('connection', client))
     }
 }
