@@ -1,8 +1,8 @@
 const Constants =
 {
     SERVER_DOMAIN: 'localhost',
-    SERVER_PORT: 443,
-    PROTOCOL: 'https',
+    SERVER_PORT: 80,
+    PROTOCOL: 'http',
 }
 
 let universe
