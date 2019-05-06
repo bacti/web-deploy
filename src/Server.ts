@@ -3,7 +3,7 @@ const FS = require('fs-extra')
 const express = require('express')
 const https = require('https')
 
-import '../constants'
+import '../dist/constants'
 import EventEmitter from './EventEmitter'
 const RELEASE = PATH.join(process.cwd(), 'dist')
 const universe: any = global
