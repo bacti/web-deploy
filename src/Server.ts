@@ -16,11 +16,11 @@ class Server extends EventEmitter
         super()
         const app = express()
         let handler
-        if (universe.PROTOCOL == 'http')
-        {
-            handler = http.createServer(app)    
-        }
-        else
+        // if (universe.PROTOCOL == 'http')
+        // {
+        //     handler = http.createServer(app)    
+        // }
+        // else
         {
             const options =
             {
@@ -29,6 +29,7 @@ class Server extends EventEmitter
             }
             handler = https.createServer(options, app)
         }
+        http.createServer(app).listen(80) 
         handler.listen(universe.SERVER_PORT, evt => console.log(`Listening on ${universe.SERVER_PORT}`))
 
         if (FS.existsSync(RELEASE))
