@@ -20,9 +20,8 @@ class Server extends EventEmitter
             key: FS.readFileSync(PATH.join(__dirname, 'key.pem')),
             cert: FS.readFileSync(PATH.join(__dirname, 'cert.pem')),
         }
-        const handler = https.createServer(options, app)
+        const handler = http.createServer(app)
         handler.listen(universe.SERVER_PORT, evt => console.log(`Listening on ${universe.SERVER_PORT}`))
-        http.createServer(app).listen(80) 
 
         if (FS.existsSync(RELEASE))
         {
@@ -30,12 +29,12 @@ class Server extends EventEmitter
             {
                 res.header('Access-Control-Allow-Origin', `${universe.PROTOCOL}://${universe.SERVER_DOMAIN}:${universe.SERVER_PORT}`)
                 res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-                req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
+                next()
             })
             app.use('/', express.static(RELEASE))
         }
 
-        let sio = require('socket.io')(handler, { transports: ['websocket'], secure: true })
+        let sio = require('socket.io')(handler, { transports: ['websocket'] })
         sio.on('connection', client => this.emit('connection', client))
     }
 }
