@@ -1,4 +1,4 @@
-export default
+module.exports =
 {
     // https://stackoverflow.com/questions/1073956/how-to-generate-63-million-prize-codes
     get uuid()

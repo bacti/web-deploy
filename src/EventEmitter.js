@@ -1,6 +1,6 @@
 const EventEmitter3 = require('eventemitter3')
 
-export default class EventEmitter extends EventEmitter3
+module.exports = class EventEmitter extends EventEmitter3
 {
     on(event, fn, context = this)
     {

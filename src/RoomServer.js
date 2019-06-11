@@ -1,7 +1,7 @@
-import Utils from './Utils'
+const Utils = require('./Utils')
+
 class RoomServer
 {
-    [x: string]: any
     constructor()
     {
         this.games = {}
@@ -175,4 +175,4 @@ class RoomServer
         }
     }
 }
-export default new RoomServer()
+module.exports = new RoomServer()
