@@ -1,6 +1,5 @@
 const Constants =
 {
-    SERVER_DOMAIN: 'localhost',
     SERVER_PORT: 80,
     PROTOCOL: 'http',
 }
