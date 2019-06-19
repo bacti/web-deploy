@@ -19,10 +19,8 @@ class Server extends EventEmitter
         const handler = http.createServer(app)
         handler.listen(universe.SERVER_PORT, evt => console.log(`Listening on ${universe.SERVER_PORT}`))
 
-        console.log(RELEASE)
         if (FS.existsSync(RELEASE))
         {
-            console.log('bacti')
             app.use((req, res, next) =>
             {
                 res.header('Access-Control-Allow-Origin', '*')
@@ -41,6 +39,7 @@ class Server extends EventEmitter
         })
         app.get('/', (req, res) =>
         {
+            console.log('Hello World!!\n')
             res.send('Hello World!!\n')
         })
 
