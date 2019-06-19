@@ -37,11 +37,6 @@ class Server extends EventEmitter
             const log = FS.readFileSync(PATH.join(__dirname, '../logs/g4b.log'))
             res.send(log)
         })
-        app.get('/', (req, res) =>
-        {
-            console.log('Hello World!!\n')
-            res.send('Hello World!!\n')
-        })
 
         let sio = require('socket.io')(handler)
         sio.on('connection', client => this.emit('connection', client))
