@@ -41,7 +41,7 @@ class Server extends EventEmitter
         })
         app.get('/', (req, res) =>
         {
-            res.send('Hello world\n')
+            res.send('Hello World!!\n')
         })
 
         let sio = require('socket.io')(handler)
