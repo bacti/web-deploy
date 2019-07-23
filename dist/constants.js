@@ -1,7 +1,7 @@
 const Constants =
 {
     SERVER_PORT: 3000,
-    PROTOCOL: 'http',
+    PROTOCOL: 'https',
 }
 
 let universe
