@@ -1,0 +1,27 @@
+body {
+    text-align: center;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+#gameDiv, canvas {
+	width: 100%;
+	height: 100%;
+	color: #000000;
+	position: absolute; top: 0; left: 0;
+}
+
+#toast {
+   position: absolute;
+
+   -webkit-transition: opacity 0.5s;
+   -moz-transition: opacity 0.5s;
+   -o-transition: opacity 0.5s;
+   transition: opacity 0.5s;
+
+   opacity: 0;
+   z-index: 1;
+   display: none;
+}
