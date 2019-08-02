@@ -52,6 +52,17 @@ class RoomServer
                 this.CreateGame(client)
                 break
             }
+            case 'e':
+            {
+                client.game.player_client.send('s.e');
+                break
+            }
+            case 'c': //client
+            {
+                if(message == 'd') //request disconnect
+                    client.disconnect()
+                break
+            }
             case 'f':
             {
                 this.FindGame(client, message)
