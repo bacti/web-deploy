@@ -18,8 +18,12 @@ function getBase64Image()
       var reader = new FileReader();
       reader.onloadend = function() {
          var base64Data = reader.result;
-         window.location.href = 'data:attachment/file' + base64Data.slice(base64Data.search(/[,;]/));
-         //onSaveSuccess();
+         //window.location.href = 'data:attachment/file' + base64Data.slice(base64Data.search(/[,;]/))
+
+         let downloader	= document.createElement('a');
+         downloader.download = `${new Date().getTime()}.png`;
+         downloader.href = 'data:attachment/file' + base64Data.slice(base64Data.search(/[,;]/))
+         downloader.click();
       };
       reader.readAsDataURL(blob);
    }, 'image/png');
