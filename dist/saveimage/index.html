@@ -1,5 +1,6 @@
 <img id='imageid' src='./logo11w.png' />
-<button type="button" onclick="getBase64Image()">Click Me!</button>
+<button type="button" onclick="getBase64Image()">canvas</button>
+<button type="button" onclick="getImage()">image</button>
 <script src='./canvas-toBlob.js'></script>
 <script>
 function getBase64Image()
@@ -16,7 +17,7 @@ function getBase64Image()
 
    canvas.toBlob(blob =>
    {
-      //window.location.href = URL.createObjectURL(blob)
+      window.location.href = URL.createObjectURL(blob)
       /*
       let downloader	= document.createElement('a');
       downloader.download = `${new Date().getTime()}.png`;
@@ -24,6 +25,7 @@ function getBase64Image()
       downloader.click();
       */
       
+      /*
       var reader = new FileReader();
       reader.onloadend = function() {
          var base64Data = reader.result;
@@ -47,8 +49,19 @@ function getBase64Image()
 
       };
       reader.readAsDataURL(blob);
+      */
       
    }, 'image/png');
+}
+
+function getImage()
+{
+   var image = document.getElementById("imageid")
+   let downloader	= document.createElement('a');
+   downloader.download = `${new Date().getTime()}.png`;
+   downloader.href = image.src
+   downloader.dataset.downloadurl = ['text/plain', downloader.download, downloader.href].join(':');
+   downloader.click();
 }
 
 window.onload = _ =>
