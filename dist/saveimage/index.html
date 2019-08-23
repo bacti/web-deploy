@@ -16,18 +16,30 @@ function getBase64Image()
    //console.log(dataURL);
    //return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 
-   canvas.toBlob(function(blob) {
+   canvas.toBlob(blob =>
+   {
+      //window.location.href = URL.createObjectURL(blob)
+      let downloader	= document.createElement('a');
+      downloader.download = `${new Date().getTime()}.png`;
+      downloader.href = URL.createObjectURL(blob)
+      downloader.click();
+      
+      /*
       var reader = new FileReader();
       reader.onloadend = function() {
          var base64Data = reader.result;
-         //window.location.href = 'data:attachment/file' + base64Data.slice(base64Data.search(/[,;]/))
+         window.open(`data:attachment/file${base64Data.slice(base64Data.search(/[,;]/))},filename=abc.png`)
+         //window.location.href = URL.createObjectURL(blob)
 
-         let downloader	= document.createElement('a');
-         downloader.download = `${new Date().getTime()}.png`;
-         downloader.href = 'data:attachment/image' + base64Data.slice(base64Data.search(/[,;]/))
-         downloader.click();
+         //let downloader	= document.createElement('a');
+         //downloader.download = `${new Date().getTime()}.png`;
+         //downloader.href = 'data:attachment/image' + base64Data.slice(base64Data.search(/[,;]/))
+         //downloader.click();
+
       };
       reader.readAsDataURL(blob);
+      */
+      
    }, 'image/png');
 }
 
