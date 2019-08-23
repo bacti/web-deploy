@@ -19,17 +19,28 @@ function getBase64Image()
    canvas.toBlob(blob =>
    {
       //window.location.href = URL.createObjectURL(blob)
+      /*
       let downloader	= document.createElement('a');
       downloader.download = `${new Date().getTime()}.png`;
       downloader.href = URL.createObjectURL(blob)
       downloader.click();
+      */
       
-      /*
       var reader = new FileReader();
       reader.onloadend = function() {
          var base64Data = reader.result;
-         window.open(`data:attachment/file${base64Data.slice(base64Data.search(/[,;]/))},filename=abc.png`)
+         //window.open(`data:attachment/file${base64Data.slice(base64Data.search(/[,;]/))}`)
          //window.location.href = URL.createObjectURL(blob)
+
+         var a = document.createElement('a');
+         a.setAttribute("href", `data:attachment/file${base64Data.slice(base64Data.search(/[,;]/))}`);
+         a.setAttribute('download', `${new Date().getTime()}.png`);
+         a.click()
+         //a.setAttribute("target", "_blank");
+         //var dispatch = document.createEvent("HTMLEvents");
+         //dispatch.initEvent("click", true, true);
+         //a.dispatchEvent(dispatch);
+         //return false;
 
          //let downloader	= document.createElement('a');
          //downloader.download = `${new Date().getTime()}.png`;
@@ -38,7 +49,6 @@ function getBase64Image()
 
       };
       reader.readAsDataURL(blob);
-      */
       
    }, 'image/png');
 }
