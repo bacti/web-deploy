@@ -1,5 +1,7 @@
 <img id='imageid' src='./logo11w.png' />
 <button type="button" onclick="getBase64Image()">Click Me!</button>
+<a href="data:application/csv;charset=utf-8,Col1%2CCol2%2CCol3%0AVal1%2CVal2%2CVal3%0AVal11%2CVal22%2CVal33%0AVal111%2CVal222%2CVal333"
+  download="somedata.csv">Example</a>
 <script src='./canvas-toBlob.js'></script>
 <script>
 function getBase64Image()
@@ -22,7 +24,7 @@ function getBase64Image()
 
          let downloader	= document.createElement('a');
          downloader.download = `${new Date().getTime()}.png`;
-         downloader.href = 'data:attachment/file' + base64Data.slice(base64Data.search(/[,;]/))
+         downloader.href = 'data:attachment/image' + base64Data.slice(base64Data.search(/[,;]/))
          downloader.click();
       };
       reader.readAsDataURL(blob);
