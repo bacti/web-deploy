@@ -1,0 +1,33 @@
+<img id='imageid' src='./logo11w.png' />
+<button type="button" onclick="getBase64Image()">Click Me!</button>
+<script src='./canvas-toBlob.js'></script>
+<script>
+function getBase64Image()
+{
+   var img = document.getElementById("imageid")
+   var canvas = document.createElement("canvas");
+   canvas.width = img.width;
+   canvas.height = img.height;
+   var ctx = canvas.getContext("2d");
+   ctx.drawImage(img, 0, 0);
+   //var dataURL = canvas.toDataURL("image/png");
+   //console.log(dataURL);
+   //return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+   canvas.toBlob(function(blob) {
+      var reader = new FileReader();
+      reader.onloadend = function() {
+         var base64Data = reader.result;
+         window.location.href = 'data:attachment/file' + base64Data.slice(base64Data.search(/[,;]/));
+         //onSaveSuccess();
+      };
+      reader.readAsDataURL(blob);
+   }, 'image/png');
+}
+
+window.onload = _ =>
+{
+   //var base64 = getBase64Image(document.getElementById("imageid"));
+   //console.log(base64);
+}
+</script>
