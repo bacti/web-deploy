@@ -13,16 +13,6 @@ a:hover {
 	position: absolute; top: 0; left: 0;
 }
 
-@font-face {
-  font-family: 'MainFont';
-  src: url('../data/font/KlavikaBold.otf');
-}
-
-@font-face {
-  font-family: 'TitleFont';
-  src: url('../data/font/KlavikaBold.otf');
-}
-
 #toast {
    position: absolute;
 

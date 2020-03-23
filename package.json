@@ -5,6 +5,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node src/index.js",
+    "release": "%NODE_PATH%/.bin/cross-env NODE_ENV=production %NODE_PATH%/.bin/webpack --progress --profile --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

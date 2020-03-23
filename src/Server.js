@@ -3,13 +3,10 @@ const FS = require('fs-extra')
 const express = require('express')
 const http = require('http')
 
-require('../dist/constants')
 const EventEmitter = require('./EventEmitter')
 const Utils = require('./Utils')
 const RoomServer = require('./RoomServer')
-const RELEASE = PATH.join(__dirname, '../dist')
-const universe = global
-
+const RELEASE = './dist'
 class Server extends EventEmitter
 {
     constructor()
@@ -17,7 +14,8 @@ class Server extends EventEmitter
         super()
         const app = express()
         const handler = http.createServer(app)
-        handler.listen(universe.SERVER_PORT, evt => console.log(`Listening on ${universe.SERVER_PORT}`))
+        const SERVER_PORT = global.SERVER_PORT || 1204
+        handler.listen(SERVER_PORT, evt => console.log(`Listening on ${SERVER_PORT}`))
 
         if (FS.existsSync(RELEASE))
         {

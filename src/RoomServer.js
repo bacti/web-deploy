@@ -54,12 +54,14 @@ class RoomServer
             }
             case 'e':
             {
-                client.game.player_client.send('s.e');
+                client.game.player_client && client.game.player_client.send('s.e');
+                delete this.games[client.game.id]
+                this.CreateGame(client)
                 break
             }
             case 'c': //client
             {
-                if(message == 'd') //request disconnect
+                if(message == 'd') // request disconnect
                     client.disconnect()
                 break
             }
@@ -130,7 +132,7 @@ class RoomServer
         {
             if (userid == thegame.player_host.userid)
             {
-                thegame.player_client && thegame.player_client.send('s.e')
+                thegame.player_client && thegame.player_client.send('s.d')
                 console.log(`Close game ${gameid}`)
                 delete this.games[gameid]
                 this.game_count--
@@ -173,17 +175,14 @@ class RoomServer
     {
         console.log('Find game ' + uri)
         let game_instance = this.games[uri]
-        if (game_instance)
+        if (game_instance && game_instance.player_count < 2)
         {
-            if (game_instance.player_count < 2)
-            {
-                game_instance.player_client = player
-                game_instance.player_count++
-                this.StartGame(game_instance)
-                return
-            }
-            player.send('s.u') // unavailable
+            game_instance.player_client = player
+            game_instance.player_count++
+            this.StartGame(game_instance)
+            return
         }
+        player.send('s.u')
     }
 }
 module.exports = new RoomServer()
