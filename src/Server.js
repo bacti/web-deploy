@@ -6,7 +6,7 @@ const http = require('http')
 const EventEmitter = require('./EventEmitter')
 const Utils = require('./Utils')
 const RoomServer = require('./RoomServer')
-const RELEASE = './dist'
+const RELEASE = './docs'
 class Server extends EventEmitter
 {
     constructor()
